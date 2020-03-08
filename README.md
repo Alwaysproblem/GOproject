@@ -1,0 +1,2 @@
+# GOproject
+template for golang
