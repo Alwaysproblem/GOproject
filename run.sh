@@ -1,2 +1,1 @@
-source run.sh && go run src/main/main.go
-# go run src/main/*.go  for main/a.go main/b.go
+source env.sh && go run src/main/main.go --server_addr 127.0.0.1:8500 --model_name Toy --model_version 3

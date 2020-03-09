@@ -4,7 +4,7 @@ package utils
 import (
 	"errors"
 	"reflect"
-
+	"fmt"
 	google_protobuf "github.com/golang/protobuf/ptypes/wrappers"
 	pb "github.com/tensorflow/serving/tensorflow_serving/apis"
 	framework "github.com/tensorflow/tensorflow/tensorflow/go/core/framework"
@@ -101,4 +101,29 @@ func AddInput(pr *pb.PredictRequest, tensorName string, dataType framework.DataT
 	}
 	pr.Inputs[tensorName] = tp
 	return
+}
+
+
+func PrintTP(tp *framework.TensorProto, dim, idx int, indexes []int) int {
+	max := tp.TensorShape.Dim[dim]
+	isLastDim := dim == len(tp.TensorShape.Dim)-1
+	indexes = append(indexes, 0)
+	// if isLastDim {
+	// 	fmt.Printf("%v\n", indexes)
+	// }
+	for i := 0; i < int(max.Size); i++ {
+		indexes[dim] = i
+		if !isLastDim {
+			idx = PrintTP(tp, dim+1, idx, indexes)
+		} else {
+			fmt.Printf("%f\n", tp.FloatVal[idx])
+			idx++
+		}
+	}
+	return idx
+}
+
+func PrintTensorProto(tp *framework.TensorProto) {
+	// fmt.Printf("%v\n", tp.TensorShape)
+	PrintTP(tp, 0, 0, nil)
 }
