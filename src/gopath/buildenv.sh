@@ -1,10 +1,12 @@
+#!/bin/bash
 set -ex
 
 TENSORFLOW_VERSION=v2.1.0
 
 # for install tensorflow GO version.
-wget https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-1.15.0.tar.gz -P /tmp/
-tar -C /usr/local -xzf /tmp/libtensorflow-cpu-linux-x86_64-1.15.0.tar.gz && ldconfig
+wget https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.15.0.tar.gz -P /tmp/
+tar -C /usr/local -xzf /tmp/libtensorflow-cpu-linux-x86_64-1.15.0.tar.gz
+ldconfig
 
 # already there, if you compile files on your computer, you will need these code.
 # go get -u -v google.golang.org/grpc
